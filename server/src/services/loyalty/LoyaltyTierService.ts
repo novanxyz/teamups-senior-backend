@@ -75,7 +75,7 @@ export class LoyaltyTierService {
     
     let order_promotions = orders.map(o => this.getPromotionsForOrder(o) );
     let point =  order_promotions.reduce((prev,cur)=> prev + cur.reduce((p,c)=>p+c.points_earned,0) ,0);
-    let loyalty_repsone = this.getLoyaltyTierforPoint(point)
+    let loyalty_repsone = this.getLoyaltyTierforPoint(Math.round(point*100)/100)
     return loyalty_repsone;
   }
 
@@ -100,7 +100,7 @@ export class LoyaltyTierService {
     }
 
     let response : ILoyaltyRewardsPointsSummary = {
-      total_points: total_points,
+      total_points: Math.round(total_points*100)/100,
       order_summaries: order_summaries
     }
     return response  ;
